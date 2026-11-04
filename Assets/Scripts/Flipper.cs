@@ -23,7 +23,7 @@ public class Flipper : MonoBehaviour
 
     void FixedUpdate()
     {
-        flipperAngle = Mathf.LerpAngle(flipperAngle, ballRb.position.y < -11f ? flipperTargetAngle : flipperStartAngle, 8f * Time.deltaTime);
+        flipperAngle = Mathf.LerpAngle(flipperAngle, ballRb.position.y < -8.5f ? flipperTargetAngle : flipperStartAngle, 8f * Time.deltaTime);
         
         rb.MoveRotation(flipperAngle);
     }
