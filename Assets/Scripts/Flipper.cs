@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Flipper : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Flipper : MonoBehaviour
     [SerializeField] private float flipperStartAngle;
 
     [SerializeField] private Rigidbody2D ballRb;
+    [SerializeField] private string flipperAction;
 
     private void Awake()
     {
@@ -21,10 +23,13 @@ public class Flipper : MonoBehaviour
         flipperAngle = flipperStartAngle;
     }
 
-    void FixedUpdate()
+    private void Update()
     {
-        flipperAngle = Mathf.LerpAngle(flipperAngle, ballRb.position.y < -8.5f ? flipperTargetAngle : flipperStartAngle, 8f * Time.deltaTime);
-        
+        flipperAngle = Mathf.LerpAngle(flipperAngle, InputSystem.actions.FindAction(flipperAction).IsPressed() ? flipperTargetAngle : flipperStartAngle, 8f * Time.deltaTime);
+    }
+
+    private void FixedUpdate()
+    {
         rb.MoveRotation(flipperAngle);
     }
 }
